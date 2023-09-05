@@ -9,6 +9,9 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CONFIG_PATH}")
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+#---- force ros1, because we make ros1 packages with colcon here at taiga ----
+set(FORCE_ROS1 ON)
+
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS -DWIN32_LEAN_AND_MEAN)
 else()
@@ -75,14 +78,14 @@ endif()
 
 find_package(ament_cmake QUIET)
 
-if ( ament_cmake_FOUND )
+if ( ament_cmake_FOUND AND ( NOT FORCE_ROS1 ) )
 
     add_definitions( -DUSING_ROS2 )
     message(STATUS "------------------------------------------")
     message(STATUS "BehaviourTree is being built using AMENT.")
     message(STATUS "------------------------------------------")
 
-elseif( CATKIN_DEVEL_PREFIX OR CATKIN_BUILD_BINARY_PACKAGE)
+elseif( CATKIN_DEVEL_PREFIX OR CATKIN_BUILD_BINARY_PACKAGE OR FORCE_ROS1)
 
     set(catkin_FOUND 1)
     add_definitions( -DUSING_ROS )
