@@ -157,8 +157,9 @@ public:
         {
           debugMessage();
 
-          throw LogicError("Blackboard::set() failed: once declared, the type of a port "
-                           "shall not change. "
+          throw LogicError("Blackboard::set() failed: once declared, the type of the port ", 
+                            key,
+                           " shall not change. "
                            "Declared type [",
                            BT::demangle(previous_type), "] != current type [",
                            BT::demangle(typeid(T)), "]");

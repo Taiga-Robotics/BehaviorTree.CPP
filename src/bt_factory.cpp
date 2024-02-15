@@ -74,6 +74,7 @@ BehaviorTreeFactory::BehaviorTreeFactory()
 
 bool BehaviorTreeFactory::unregisterBuilder(const std::string& ID)
 {
+  // consider commenting this to replace builtins with custom implementations.
   if (builtinNodes().count(ID))
   {
     throw LogicError("You can not remove the builtin registration ID [", ID, "]");
