@@ -58,14 +58,14 @@ endif()
 
 #---- Find other packages ----
 find_package(Threads)
-find_package(ZMQ)
+# find_package(ZMQ)
 
 if( ZMQ_FOUND )
     message(STATUS "ZeroMQ: found.")
     add_definitions( -DZMQ_FOUND )
     list(APPEND BT_SOURCE src/loggers/bt_zmq_publisher.cpp)
 else()
-    message(WARNING "ZeroMQ NOT found. Skipping the build of [PublisherZMQ] and [bt_recorder].")
+    # message(WARNING "ZeroMQ NOT found. Skipping the build of [PublisherZMQ] and [bt_recorder].")
 endif()
 
 set(BEHAVIOR_TREE_LIBRARY ${PROJECT_NAME})
