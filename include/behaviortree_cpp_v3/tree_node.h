@@ -51,6 +51,8 @@ struct NodeConfiguration
   PortsRemapping output_ports;
 };
 
+uint16_t getUID();
+
 /// Abstract base class for Behavior Tree Nodes
 class TreeNode
 {
@@ -69,6 +71,18 @@ public:
      */
   TreeNode(std::string name, NodeConfiguration config);
 
+  /**
+     * @brief TreeNode main constructor.
+     *
+     * @param name     name of the instance, not the type.
+     * @param config   information about input/output ports. See NodeConfiguration
+     * @param uid      unique id of this node
+     * @param description a description string
+     * @param metadata  a string containing a json encoded object
+  */
+  TreeNode(std::string name, uint16_t uid,  std::string description, std::string metadata, NodeConfiguration config); 
+
+
   virtual ~TreeNode() = default;
 
   /// The method that should be used to invoke tick() and setStatus();
@@ -84,6 +98,9 @@ public:
 
   /// Name of the instance, not the type
   const std::string& name() const;
+  const std::string& description() const;
+  const std::string& metadata() const;
+  const std::string& messages() const;
 
   /// Blocking function that will sleep until the setStatus() is called with
   /// either RUNNING, FAILURE or SUCCESS.
@@ -182,6 +199,13 @@ public:
   // Notify the tree should be ticked again()
   void emitStateChanged();
 
+  void set_uid(uint16_t uid);
+  void set_description(std::string description);
+  void set_metadata(std::string metadata);
+  void clear_messages();
+  void append_message(std::string message);
+
+
 protected:
   /// Method to be implemented by the user
   virtual BT::NodeStatus tick() = 0;
@@ -202,6 +226,9 @@ protected:
 
 private:
   const std::string name_;
+  std::string description_;
+  std::string metadata_;
+  std::string messages_;
 
   NodeStatus status_;
 
@@ -211,7 +238,7 @@ private:
 
   StatusChangeSignal state_change_signal_;
 
-  const uint16_t uid_;
+  uint16_t uid_;
 
   NodeConfiguration config_;
 

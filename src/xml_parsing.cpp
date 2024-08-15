@@ -510,6 +510,14 @@ TreeNode::Ptr XMLParser::Pimpl::createNodeFromXML(const XMLElement* element,
     instance_name = ID;
   }
 
+  // get description, id and metadata
+  std::string description="";
+  if (element->Attribute("_description")) description = element->Attribute("_description");
+  std::string metadata = "";
+  if (element->Attribute("_metadata")) metadata = element->Attribute("_metadata");
+  std::string uid = "";
+  if (element->Attribute("_uid")) uid = element->Attribute("_uid");
+
   PortsRemapping port_remap;
 
   if (element_name == "SubTree" || element_name == "SubTreePlus")
@@ -649,6 +657,18 @@ TreeNode::Ptr XMLParser::Pimpl::createNodeFromXML(const XMLElement* element,
       decorator_parent->setChild(child_node.get());
     }
   }
+  
+  // assign extra data
+  child_node->set_description(description);
+  child_node->set_metadata(metadata);
+  uint16_t uidnum;
+  try{
+    uidnum = std::stoi(uid);
+  }catch(...){
+    uidnum=BT::getUID();
+  }
+  child_node->set_uid(uidnum);
+
   return child_node;
 }
 

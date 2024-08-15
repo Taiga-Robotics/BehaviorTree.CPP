@@ -2,6 +2,7 @@
 #define XML_PARSING_BT_H
 
 #include "behaviortree_cpp_v3/bt_parser.h"
+#include "behaviortree_cpp_v3/tree_node.h"
 
 #include <unordered_map>
 

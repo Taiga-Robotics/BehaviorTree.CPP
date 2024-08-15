@@ -51,10 +51,12 @@ private:
     std::string key, value;
     if (!getInput("output_key", key))
     {
+      setStatus(NodeStatus::FAILURE);
       throw RuntimeError("missing port [output_key]");
     }
     if (!getInput("value", value))
     {
+      setStatus(NodeStatus::FAILURE);
       throw RuntimeError("missing port [value]");
     }
     setOutput("output_key", value);

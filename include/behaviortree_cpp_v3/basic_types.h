@@ -216,7 +216,7 @@ using Optional = nonstd::expected<T, std::string>;
  * */
 using Result = Optional<void>;
 
-const std::unordered_set<std::string> ReservedPortNames = {"ID", "name", "_description"};
+const std::unordered_set<std::string> ReservedPortNames = {"ID", "name", "_description", "_metadata", "_uid"};
 
 class PortInfo
 {

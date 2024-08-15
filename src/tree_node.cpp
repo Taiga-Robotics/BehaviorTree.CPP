@@ -16,18 +16,30 @@
 
 namespace BT
 {
-static uint16_t getUID()
+uint16_t getUID()
 {
   static uint16_t uid = 1;
   return uid++;
 }
 
+// regular tree node constructor
 TreeNode::TreeNode(std::string name, NodeConfiguration config) :
   name_(std::move(name)),
   status_(NodeStatus::IDLE),
   uid_(getUID()),
   config_(std::move(config))
 {}
+
+// explicit tree node constructor allows setting of uid and metadata
+TreeNode::TreeNode(std::string name, uint16_t uid,  std::string description, std::string metadata, NodeConfiguration config) :
+  name_(std::move(name)),
+  description_(description),
+  metadata_(metadata),
+  status_(NodeStatus::IDLE),
+  uid_(uid),
+  config_(std::move(config))
+{}
+
 
 NodeStatus TreeNode::executeTick()
 {
@@ -99,9 +111,48 @@ NodeStatus TreeNode::waitValidStatus()
   return status_;
 }
 
+void TreeNode::set_uid(uint16_t uid)
+{
+  uid_=uid;
+}
+void TreeNode::set_description(std::string description)
+{
+  description_ = description;
+}
+
+void TreeNode::set_metadata(std::string metadata)
+{
+  metadata_ = metadata;
+}
+
+void TreeNode::clear_messages()
+{
+  messages_.clear();
+}
+
+void TreeNode::append_message(std::string message)
+{
+  messages_.append("\n"+message);
+}
+
 const std::string& TreeNode::name() const
 {
   return name_;
+}
+
+const std::string& TreeNode::description() const
+{
+  return description_;
+}
+
+const std::string& TreeNode::metadata() const
+{
+  return metadata_;
+}
+
+const std::string& TreeNode::messages() const
+{
+  return messages_;
 }
 
 bool TreeNode::isHalted() const
