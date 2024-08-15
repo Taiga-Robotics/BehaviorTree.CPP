@@ -52,11 +52,13 @@ private:
     if (!getInput("output_key", key))
     {
       setStatus(NodeStatus::FAILURE);
+      this->append_message("missing port [output_key]");
       throw RuntimeError("missing port [output_key]");
     }
     if (!getInput("value", value))
     {
       setStatus(NodeStatus::FAILURE);
+      this->append_message("missing port [value]");
       throw RuntimeError("missing port [value]");
     }
     setOutput("output_key", value);
