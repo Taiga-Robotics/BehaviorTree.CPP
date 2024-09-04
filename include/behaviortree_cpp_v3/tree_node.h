@@ -101,6 +101,9 @@ public:
   const std::string& description() const;
   const std::string& metadata() const;
   const std::string& messages() const;
+  unsigned long int run_id_=0;
+
+  unsigned long int get_run_id() const;
 
   /// Blocking function that will sleep until the setStatus() is called with
   /// either RUNNING, FAILURE or SUCCESS.

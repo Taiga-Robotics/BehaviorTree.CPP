@@ -86,6 +86,9 @@ void TreeNode::setStatus(NodeStatus new_status)
     state_change_signal_.notify(std::chrono::high_resolution_clock::now(), *this,
                                 prev_status, new_status);
   }
+
+  if(prev_status==NodeStatus::IDLE && new_status==NodeStatus::RUNNING)
+    run_id_++;
 }
 
 void TreeNode::resetStatus()
@@ -153,6 +156,11 @@ const std::string& TreeNode::metadata() const
 const std::string& TreeNode::messages() const
 {
   return messages_;
+}
+
+unsigned long int TreeNode::get_run_id() const
+{
+  return run_id_;
 }
 
 bool TreeNode::isHalted() const
