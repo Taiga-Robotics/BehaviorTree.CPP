@@ -48,6 +48,7 @@ public:
 private:
   virtual BT::NodeStatus tick() override
   {
+    this->clear_messages();
     std::string key, value;
     if (!getInput("output_key", key))
     {
