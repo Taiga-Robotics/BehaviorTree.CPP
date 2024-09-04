@@ -34,6 +34,9 @@ NodeStatus WhileDoElseNode::tick()
     throw std::logic_error("WhileDoElse must have 3 children");
   }
 
+  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+    resetChildren();
+
   setStatus(NodeStatus::RUNNING);
 
   NodeStatus condition_status = children_nodes_[0]->executeTick();
@@ -62,7 +65,7 @@ NodeStatus WhileDoElseNode::tick()
   }
   else
   {
-    resetChildren();
+    // resetChildren();
     return status;
   }
 }

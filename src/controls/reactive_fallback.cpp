@@ -18,6 +18,9 @@ NodeStatus ReactiveFallback::tick()
 {
   size_t failure_count = 0;
 
+  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+    resetChildren();
+
   for (size_t index = 0; index < childrenCount(); index++)
   {
     TreeNode* current_child_node = children_nodes_[index];
@@ -39,7 +42,7 @@ NodeStatus ReactiveFallback::tick()
       break;
 
       case NodeStatus::SUCCESS: {
-        resetChildren();
+        // resetChildren();
         return NodeStatus::SUCCESS;
       }
 
@@ -51,7 +54,7 @@ NodeStatus ReactiveFallback::tick()
 
   if (failure_count == childrenCount())
   {
-    resetChildren();
+    // resetChildren();
     return NodeStatus::FAILURE;
   }
 

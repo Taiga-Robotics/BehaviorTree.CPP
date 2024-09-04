@@ -32,6 +32,9 @@ NodeStatus SequenceNode::tick()
 {
   const size_t children_count = children_nodes_.size();
 
+  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+    resetChildren();
+
   setStatus(NodeStatus::RUNNING);
 
   while (current_child_idx_ < children_count)
@@ -46,7 +49,7 @@ NodeStatus SequenceNode::tick()
       }
       case NodeStatus::FAILURE: {
         // Reset on failure
-        resetChildren();
+        // resetChildren();
         current_child_idx_ = 0;
         return child_status;
       }
@@ -64,7 +67,7 @@ NodeStatus SequenceNode::tick()
   // The entire while loop completed. This means that all the children returned SUCCESS.
   if (current_child_idx_ == children_count)
   {
-    resetChildren();
+    // resetChildren();
     current_child_idx_ = 0;
   }
   return NodeStatus::SUCCESS;

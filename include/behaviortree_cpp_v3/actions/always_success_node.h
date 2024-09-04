@@ -30,6 +30,7 @@ public:
 private:
   virtual BT::NodeStatus tick() override
   {
+    setStatus(NodeStatus::SUCCESS);
     return NodeStatus::SUCCESS;
   }
 };

@@ -19,6 +19,9 @@ NodeStatus ReactiveSequence::tick()
   size_t success_count = 0;
   size_t running_count = 0;
 
+  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+    resetChildren();
+
   for (size_t index = 0; index < childrenCount(); index++)
   {
     TreeNode* current_child_node = children_nodes_[index];
@@ -37,7 +40,7 @@ NodeStatus ReactiveSequence::tick()
       }
 
       case NodeStatus::FAILURE: {
-        resetChildren();
+        // resetChildren();
         return NodeStatus::FAILURE;
       }
       case NodeStatus::SUCCESS: {
@@ -53,7 +56,7 @@ NodeStatus ReactiveSequence::tick()
 
   if (success_count == childrenCount())
   {
-    resetChildren();
+    // resetChildren();
     return NodeStatus::SUCCESS;
   }
   return NodeStatus::RUNNING;

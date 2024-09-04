@@ -40,6 +40,9 @@ ParallelNode::ParallelNode(const std::string& name, const NodeConfiguration& con
 
 NodeStatus ParallelNode::tick()
 {
+  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+    resetChildren();
+
   if (read_parameter_from_ports_)
   {
     if (!getInput(THRESHOLD_SUCCESS, success_threshold_))
@@ -97,7 +100,7 @@ NodeStatus ParallelNode::tick()
         if (success_childred_num == successThreshold())
         {
           skip_list_.clear();
-          resetChildren();
+          // resetChildren();
           return NodeStatus::SUCCESS;
         }
       }
@@ -116,7 +119,7 @@ NodeStatus ParallelNode::tick()
             (failure_childred_num == failureThreshold()))
         {
           skip_list_.clear();
-          resetChildren();
+          // resetChildren();
           return NodeStatus::FAILURE;
         }
       }

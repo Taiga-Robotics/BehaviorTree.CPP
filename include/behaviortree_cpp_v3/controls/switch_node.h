@@ -84,6 +84,9 @@ inline NodeStatus SwitchNode<NUM_CASES>::tick()
                      "must be (num_cases + default)");
   }
 
+  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+    resetChildren();
+
   std::string variable;
   std::string value;
   int match_index = int(NUM_CASES);   // default index;
@@ -119,7 +122,7 @@ inline NodeStatus SwitchNode<NUM_CASES>::tick()
   }
   else
   {
-    resetChildren();
+    // resetChildren();
     running_child_ = -1;
   }
   return ret;

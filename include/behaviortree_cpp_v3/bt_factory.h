@@ -221,7 +221,7 @@ public:
     NodeStatus ret = rootNode()->executeTick();
     if (ret == NodeStatus::SUCCESS || ret == NodeStatus::FAILURE)
     {
-      rootNode()->setStatus(BT::NodeStatus::IDLE);
+      rootNode()->setStatus(BT::NodeStatus::IDLE);  //TODO: dont blow out status automatically.
     }
     return ret;
   }

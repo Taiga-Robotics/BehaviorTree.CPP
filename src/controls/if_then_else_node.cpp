@@ -35,6 +35,9 @@ NodeStatus IfThenElseNode::tick()
     throw std::logic_error("IfThenElseNode must have either 2 or 3 children");
   }
 
+  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+    resetChildren();
+
   setStatus(NodeStatus::RUNNING);
 
   if (child_idx_ == 0)
@@ -71,7 +74,7 @@ NodeStatus IfThenElseNode::tick()
     }
     else
     {
-      resetChildren();
+      // resetChildren();
       child_idx_ = 0;
       return status;
     }
