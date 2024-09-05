@@ -33,8 +33,11 @@ NodeStatus SequenceNode::tick()
   const size_t children_count = children_nodes_.size();
 
   if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+  {
+    clear_messages();
     resetChildren();
-
+  }
+  
   setStatus(NodeStatus::RUNNING);
 
   while (current_child_idx_ < children_count)

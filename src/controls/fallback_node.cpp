@@ -26,8 +26,10 @@ NodeStatus FallbackNode::tick()
   const size_t children_count = children_nodes_.size();
 
   if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+  {
     resetChildren();
-
+    clear_messages();
+  }
   setStatus(NodeStatus::RUNNING);
 
   while (current_child_idx_ < children_count)
@@ -63,6 +65,7 @@ NodeStatus FallbackNode::tick()
     current_child_idx_ = 0;
   }
 
+  append_message("All children failed.");
   return NodeStatus::FAILURE;
 }
 
