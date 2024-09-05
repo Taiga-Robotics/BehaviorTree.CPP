@@ -50,6 +50,7 @@ NodeStatus SequenceNode::tick()
       case NodeStatus::FAILURE: {
         // Reset on failure
         // resetChildren();
+        append_message("Child " + std::to_string(current_child_idx_+1) + " returned failure");
         current_child_idx_ = 0;
         return child_status;
       }
