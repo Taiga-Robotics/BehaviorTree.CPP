@@ -18,7 +18,7 @@ NodeStatus ReactiveFallback::tick()
 {
   size_t failure_count = 0;
 
-  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+  if (status()!=NodeStatus::RUNNING )
     resetChildren();
 
   for (size_t index = 0; index < childrenCount(); index++)

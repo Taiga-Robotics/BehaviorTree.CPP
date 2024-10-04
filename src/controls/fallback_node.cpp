@@ -25,7 +25,7 @@ NodeStatus FallbackNode::tick()
 {
   const size_t children_count = children_nodes_.size();
 
-  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+  if (status()!=NodeStatus::RUNNING )
   {
     resetChildren();
     clear_messages();

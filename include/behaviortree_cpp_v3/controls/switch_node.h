@@ -84,7 +84,7 @@ inline NodeStatus SwitchNode<NUM_CASES>::tick()
                      "must be (num_cases + default)");
   }
 
-  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+  if (status()!=NodeStatus::RUNNING )
     resetChildren();
 
   std::string variable;

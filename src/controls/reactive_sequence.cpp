@@ -19,7 +19,7 @@ NodeStatus ReactiveSequence::tick()
   size_t success_count = 0;
   size_t running_count = 0;
 
-  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+  if (status()!=NodeStatus::RUNNING )
     resetChildren();
 
   for (size_t index = 0; index < childrenCount(); index++)

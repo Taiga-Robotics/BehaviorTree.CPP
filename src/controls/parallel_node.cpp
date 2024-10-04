@@ -40,7 +40,7 @@ ParallelNode::ParallelNode(const std::string& name, const NodeConfiguration& con
 
 NodeStatus ParallelNode::tick()
 {
-  if (status()!=NodeStatus::RUNNING && status()!=NodeStatus::IDLE)
+  if (status()!=NodeStatus::RUNNING)
     resetChildren();
 
   if (read_parameter_from_ports_)
